@@ -1,0 +1,45 @@
+version: '2'
+services:
+    webserver:
+      container_name: symfony_webserver
+      build: ./webserver
+      tty: true
+      depends_on:
+        - database
+      restart: on-failure
+      ports:
+        - "80:80"
+        - "443:443"
+      volumes:
+        - ${SYMFONY_APP_PATH}:/var/www/symfony
+
+    database:
+      container_name: symfony_database
+      image: mysql:5.7
+      restart: on-failure
+      volumes:
+          - ./data/database:/var/lib/mysql
+      ports:
+          - 3306:3306
+      environment:
+          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+          MYSQL_DATABASE: ${MYSQL_DATABASE}
+          MYSQL_USER: ${MYSQL_USER}
+          MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    phpmyadmin:
+      container_name: symfony_phpmyadmin
+      image: phpmyadmin/phpmyadmin
+      depends_on:
+        - database
+      restart: on-failure
+      environment:
+       - PMA_ARBITRARY=1
+      ports:
+       - 8080:80
+      environment:
+        PMA_HOST: ${PROJECT_NAME}_database
+        PMA_USER: ${MYSQL_USER}
+        PMA_PASSWORD: ${MYSQL_PASSWORD}
+      volumes:
+       - /sessions
