@@ -38,7 +38,7 @@ services:
       ports:
        - 8080:80
       environment:
-        PMA_HOST: ${PROJECT_NAME}_database
+        PMA_HOST: symfony_database
         PMA_USER: ${MYSQL_USER}
         PMA_PASSWORD: ${MYSQL_PASSWORD}
       volumes:
