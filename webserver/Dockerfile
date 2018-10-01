@@ -1,5 +1,6 @@
 FROM ubuntu:14.04
 
+LABEL version="1.0.0"
 LABEL maintainer="Mehmet Kaptan - mhtkpt@gmail.com"
 
 ARG TIMEZONE
@@ -65,11 +66,8 @@ RUN rm -rf \
     /etc/nginx/sites-enabled \
     /etc/nginx/sites-available
 ADD conf/*.conf /etc/nginx/
-ADD conf/symfony/* /etc/nginx/symfony/
-ADD cert/* /etc/nginx/ssl/
 
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
-RUN printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/conf.d/tzone.ini
 RUN sed -i '/daemonize /c daemonize = no' /etc/php/5.6/fpm/php-fpm.conf
 RUN sed -i '/^pid /c pid = /run/php5.6-fpm.pid' /etc/php/5.6/fpm/php-fpm.conf
 RUN sed -i '/error_log /c error_log = /proc/self/fd/2' /etc/php/5.6/fpm/php-fpm.conf
