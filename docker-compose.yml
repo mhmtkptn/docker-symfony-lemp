@@ -33,11 +33,10 @@ services:
       depends_on:
         - database
       restart: on-failure
-      environment:
-       - PMA_ARBITRARY=1
       ports:
        - 8080:80
       environment:
+        PMA_ARBITRARY: 1
         PMA_HOST: symfony_database
         PMA_USER: ${MYSQL_USER}
         PMA_PASSWORD: ${MYSQL_PASSWORD}
