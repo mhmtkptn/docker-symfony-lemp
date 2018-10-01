@@ -14,3 +14,7 @@ Symfony tabanlı uygulamaların Docker containerları üzerinden çalıştırlma
 
 .env dosyası içerisinde bulunan bilgiler doldurulmalıdır.
 
+- Kullanılan Domainler
+-- phpmyadmin.local -> phpmyadmine erişim için kullanılır
+-- symfony.local -> app_dev.php üzerinden symfony appinize erişim için kullanılır. (debug toolbar ile kullanım)
+-- symfony.prod -> app.php üzerinden symfony appinize erişim için kullanılır.
